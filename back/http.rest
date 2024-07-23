@@ -1,0 +1,9 @@
+@endpoint=http://localhost:3000
+
+### création d'une task
+POST {{endpoint}}/tasks
+Content-Type: application/json
+
+{
+    "name": "Le nom de ma nouvelle tâche"
+}

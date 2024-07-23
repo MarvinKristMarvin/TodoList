@@ -65,7 +65,7 @@ const taskManager = {
    *
    * @param {Event} event
    */
-  handleCreateForm: function (event) {
+  handleCreateForm: async function (event) {
     // Bloquer l'envoie du formulaire
     event.preventDefault();
 
@@ -73,9 +73,23 @@ const taskManager = {
     const taskFormData = new FormData(event.currentTarget);
 
     // Envoyer les données à l'API
+    const taskData = Object.fromEntries(taskFormData);
+    const response = await fetch(`${taskManager.apiEndpoint}/tasks`, {
+      method: "POST",
+      headers: {
+        // Je précise que j'envoie du JSON
+        "Content-Type": "application/json",
+      },
+      // Je transforme mon objet JS en JSON
+      body: JSON.stringify(taskData),
+    });
+
+    // .json() crée un objet à partir de json, eh oui, c'est bizarre
+    const data = await response.json();
 
     // Après confirmation de l'API insérer la tâche dans la page (il y a une fonction toute prete pour ça ;)
     // en utilisant la valeur de retour de l'API
+    taskManager.insertTaskInHtml(data);
   },
 
   /**

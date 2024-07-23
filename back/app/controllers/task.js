@@ -10,6 +10,12 @@ const taskController = {
     // Renvoyer la liste des taches en json
     res.json(taskList);
   },
+
+  postTask: async function (req, res) {
+    const userInput = req.body;
+    const task = await Task.create(userInput);
+    res.status(201).json(task);
+  },
 };
 
 module.exports = taskController;
