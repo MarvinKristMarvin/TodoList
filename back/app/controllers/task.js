@@ -16,6 +16,23 @@ const taskController = {
     const task = await Task.create(userInput);
     res.status(201).json(task);
   },
+
+  patchTask: async function (req, res, next) {
+    const { id } = req.params;
+    const userInput = req.body;
+    const [, tasks] = await Task.update(userInput, {
+      where: { id },
+      returning: true,
+    });
+
+    if (!tasks || !tasks.length) {
+      return next();
+    }
+
+    const [task] = tasks;
+
+    res.json(task);
+  },
 };
 
 module.exports = taskController;

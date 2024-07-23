@@ -7,3 +7,11 @@ Content-Type: application/json
 {
     "name": "Le nom de ma nouvelle tâche"
 }
+
+### patch task
+PATCH {{endpoint}}/tasks/1
+Content-Type: application/json
+
+{
+    "name": "dfgbfg"
+}

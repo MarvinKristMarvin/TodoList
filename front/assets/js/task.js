@@ -148,4 +148,20 @@ const taskManager = {
     // On masque le titre
     taskHtmlElement.querySelector(".task__name").style.display = "block";
   },
+
+  updateTask: async function (taskId) {
+    const response = await fetch(`${taskManager.apiEndpoint}/tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        // Je précise que j'envoie du JSON
+        "Content-Type": "application/json",
+      },
+      // Je transforme mon objet JS en JSON
+      body: JSON.stringify(taskData),
+    });
+
+    // .json() crée un objet à partir de json, eh oui, c'est bizarre
+    const data = await response.json();
+    console.log(data);
+  },
 };
